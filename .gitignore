@@ -27,3 +27,18 @@
 *.exe
 *.out
 *.app
+
+# Qt
+*.qmake.stash
+Makefile
+*moc*.cpp
+*moc*.h
+*ui_*.h
+
+# Ogre
+*.log
+
+# Us
+# The build on linux is this:
+arpg-editor
+
