@@ -34,11 +34,11 @@ Makefile
 *moc*.cpp
 *moc*.h
 *ui_*.h
+*.autosave
 
 # Ogre
 *.log
 
 # Us
 # The build on linux is this:
-arpg-editor
-
+arpg/build/arpg-editor
