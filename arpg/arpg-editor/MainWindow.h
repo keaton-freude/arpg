@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <string>
+
+using std::string;
 
 namespace Ui {
 class MainWindow;
@@ -14,6 +17,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+private slots:
+    void fileChanged(string newContents);
 
 private:
     Ui::MainWindow *ui;

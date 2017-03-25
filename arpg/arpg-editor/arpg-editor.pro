@@ -26,11 +26,13 @@ INCLUDEPATH += /usr/local/include/OGRE
 
 SOURCES += main.cpp\
         MainWindow.cpp \
-    QTOgreWindow.cpp
+    QTOgreWindow.cpp \
+    FileWatcher.cpp
 
 HEADERS  += MainWindow.h \
     QTOgreWindow.h \
-    QTOgreWidget.h
+    QTOgreWidget.h \
+    FileWatcher.h
 
 FORMS    += MainWindow.ui
 
