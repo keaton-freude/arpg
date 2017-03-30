@@ -18,6 +18,8 @@ public:
 
     void Render();
     void Initialize(unsigned int width, unsigned int height, unsigned long externalWindowHandle, unsigned long parentWindowHandle);
+
+    bool IsInitialized() const;
 private:
     void RegisterResources();
     void LoadRenderSystem(unsigned int width, unsigned int height);
@@ -32,4 +34,6 @@ private:
     Ogre::Camera* _ogreCamera;
     Ogre::ColourValue _clearColor;
     Ogre::LogListener* _logListener;
+
+    bool _initialized;
 };

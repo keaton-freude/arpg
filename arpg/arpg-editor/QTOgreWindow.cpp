@@ -22,7 +22,10 @@ void QTOgreWindow::render(QPainter *painter)
 void QTOgreWindow::render()
 {
     Ogre::WindowEventUtilities::messagePump();
-    _renderSystem.Render();
+
+    // only render if Initialized
+    if (_renderSystem.IsInitialized())
+        _renderSystem.Render();
 }
 
 void QTOgreWindow::setAnimating(bool animating)
@@ -59,7 +62,20 @@ bool QTOgreWindow::eventFilter(QObject *target, QEvent *event)
     {
         if (event->type() == QEvent::Resize)
         {
+            // Our window width/height isn't valid until the first
+            // resize, so we'll check if our RenderSystem is initialized
+            // if its not, its our first time through and we'll Initialize
+            // Otherwise we'll handle the ResizeEvent by forwarding it to the
+            // RenderSystem.
 
+            if (!_renderSystem.IsInitialized())
+            {
+                _renderSystem.Initialize(this->width(), this->height(), this->winId(), this->winId());
+            }
+            else
+            {
+                // Handle Resize
+            }
         }
     }
 

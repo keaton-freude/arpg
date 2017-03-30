@@ -6,7 +6,8 @@ RenderSystem::RenderSystem()
       _ogreSceneManager(nullptr),
       _ogreCamera(nullptr),
       _clearColor(Ogre::ColourValue(100.f / 255.f, 149.f / 255.f, 237.f / 255.f, 1.0f)), // Cornflower Blue
-      _logListener(nullptr)
+      _logListener(nullptr),
+      _initialized(false)
 {
 }
 
@@ -16,7 +17,8 @@ RenderSystem::RenderSystem(Ogre::LogListener *logListener)
       _ogreSceneManager(nullptr),
       _ogreCamera(nullptr),
       _clearColor(Ogre::ColourValue(100.f / 225.f, 149.f / 255.f, 237.f / 255.f, 1.0f)),
-      _logListener(logListener)
+      _logListener(logListener),
+      _initialized(false)
 {
 
 }
@@ -60,6 +62,12 @@ void RenderSystem::Initialize(unsigned int width, unsigned int height, unsigned 
     Ogre::ResourceGroupManager::getSingletonPtr()->initialiseAllResourceGroups();
 
     _root->addFrameListener(this);
+    _initialized = true;
+}
+
+bool RenderSystem::IsInitialized() const
+{
+    return _initialized;
 }
 
 void RenderSystem::RegisterResources()
