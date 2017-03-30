@@ -6,13 +6,15 @@
 
 #include <Ogre.h>
 #include <Hlms/Unlit/OgreHlmsUnlit.h>
+#include <Hlms/Pbs/OgreHlmsPbs.h>
 #include <OgreItem.h>
+#include "OgreLogWatcher.h"
 
 class QTOgreWindow : public QWindow, public Ogre::FrameListener
 {
     Q_OBJECT
 public:
-    explicit QTOgreWindow(QWindow* parent = NULL);
+    explicit QTOgreWindow(OgreLogWatcher* logWatcher = NULL, QWindow* parent = NULL);
     ~QTOgreWindow();
 
     virtual void render(QPainter* painter);
@@ -39,6 +41,11 @@ protected:
     Ogre::SceneManager* _ogreSceneManager;
     Ogre::Camera* _ogreCamera;
     Ogre::ColourValue _ogreBackground;
+    OgreLogWatcher* _logWatcher;
+
+    Ogre::Vector3 _prev_mouse_pos;
+
+    unsigned long _currentTime;
 
     bool _update_pending;
     bool _animating;

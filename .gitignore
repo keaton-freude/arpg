@@ -42,3 +42,8 @@ Makefile
 # Us
 # The build on linux is this:
 arpg/build/arpg-editor
+
+# Ignoring GLSL for now (auto generated), change this up if we start writing our own GLSL
+*.glsl
+DebugPack.zip
+DebugPack/

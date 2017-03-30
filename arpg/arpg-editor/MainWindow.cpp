@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "QTOgreWindow.h"
-#include "FileWatcher.h"
+#include <OgreLogManager.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,11 +9,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    FileWatcher watcher("Ogre.log");
+    ui->logList->setUniformItemSizes(true);
 
-    connect(&watcher, &FileWatcher::fileChanged, this, &MainWindow::fileChanged);
+    QTOgreWindow* ogreWindow = new QTOgreWindow(&logWatcher);
 
-    QTOgreWindow* ogreWindow = new QTOgreWindow();
+    connect(&logWatcher, &OgreLogWatcher::logAdded, this, &MainWindow::logAdded);
+
     QWidget* renderingContainer = QWidget::createWindowContainer(ogreWindow);
 
     ui->tabWidget->removeTab(0);
@@ -28,7 +29,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::fileChanged(string newContents)
+void MainWindow::logAdded(string message)
 {
-    /* Write to the UI's log window */
+    ui->logList->addItem(QString::fromStdString(message));
+    ui->logList->scrollToBottom();
 }

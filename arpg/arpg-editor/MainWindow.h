@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <string>
+#include <OgreLogWatcher.h>
 
 using std::string;
 
@@ -19,10 +20,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void fileChanged(string newContents);
+    void logAdded(string message);
 
 private:
     Ui::MainWindow *ui;
+    OgreLogWatcher logWatcher;
 };
 
 #endif // MAINWINDOW_H

@@ -27,13 +27,13 @@ INCLUDEPATH += /usr/local/include/OGRE
 SOURCES += main.cpp\
         MainWindow.cpp \
     QTOgreWindow.cpp \
-    FileWatcher.cpp
+    OgreLogWatcher.cpp
 
 HEADERS  += MainWindow.h \
     QTOgreWindow.h \
     QTOgreWidget.h \
-    FileWatcher.h
+    OgreLogWatcher.h
 
 FORMS    += MainWindow.ui
 
-LIBS += -L"/usr/local/lib" -lOgreMain -lOgreHlmsUnlit
+LIBS += -L"/usr/local/lib" -lOgreMain -lOgreHlmsUnlit -lOgreHlmsPbs

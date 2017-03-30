@@ -1,0 +1,16 @@
+hlms DebugCube pbs
+{
+}
+
+hlms DebugSphere1000 pbs
+{
+}
+
+hlms Ground pbs
+{
+   diffuse_map Rocks_Diffuse.tga
+   normal_map Rocks_Normal.tga
+   specular_map Rocks_Spec.tga
+   roughness 0.4
+   fresnel 1.33
+}
