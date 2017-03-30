@@ -1,1 +1,35 @@
 #pragma once
+
+#include <Ogre.h>
+#include <OgreLog.h>
+#include <Compositor/OgreCompositorManager2.h>
+
+#include <OgreMesh.h>
+#include <OgreMeshManager.h>
+#include <OgreMesh2.h>
+#include <OgreMeshManager2.h>
+
+class RenderSystem : public Ogre::FrameListener
+{
+public:
+    RenderSystem();
+    RenderSystem(Ogre::LogListener* logListener);
+    ~RenderSystem();
+
+    void Render();
+    void Initialize(unsigned int width, unsigned int height, unsigned long externalWindowHandle, unsigned long parentWindowHandle);
+private:
+    void RegisterResources();
+    void LoadRenderSystem(unsigned int width, unsigned int height);
+    void CreateRenderWindow(unsigned int width, unsigned int height, unsigned long externalWindowHandle, unsigned long parentWindowHandle);
+    void CreateSceneManager();
+    void CreateCamera();
+    void CreateCompositor();
+
+    Ogre::Root* _root;
+    Ogre::RenderWindow* _ogreWindow;
+    Ogre::SceneManager* _ogreSceneManager;
+    Ogre::Camera* _ogreCamera;
+    Ogre::ColourValue _clearColor;
+    Ogre::LogListener* _logListener;
+};

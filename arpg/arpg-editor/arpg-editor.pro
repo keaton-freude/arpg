@@ -27,11 +27,11 @@ INCLUDEPATH += /usr/local/include/OGRE
 SOURCES += main.cpp\
         MainWindow.cpp \
     QTOgreWindow.cpp \
-    OgreLogWatcher.cpp
+    OgreLogWatcher.cpp \
+    RenderSystem.cpp
 
 HEADERS  += MainWindow.h \
     QTOgreWindow.h \
-    QTOgreWidget.h \
     OgreLogWatcher.h \
     RenderSystem.h
 
