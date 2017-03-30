@@ -32,7 +32,8 @@ SOURCES += main.cpp\
 HEADERS  += MainWindow.h \
     QTOgreWindow.h \
     QTOgreWidget.h \
-    OgreLogWatcher.h
+    OgreLogWatcher.h \
+    rendersystem.h
 
 FORMS    += MainWindow.ui
 
