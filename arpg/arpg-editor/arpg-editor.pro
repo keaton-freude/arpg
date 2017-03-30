@@ -33,7 +33,7 @@ HEADERS  += MainWindow.h \
     QTOgreWindow.h \
     QTOgreWidget.h \
     OgreLogWatcher.h \
-    rendersystem.h
+    RenderSystem.h
 
 FORMS    += MainWindow.ui
 
