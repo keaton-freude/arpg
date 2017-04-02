@@ -29,14 +29,17 @@ SOURCES += main.cpp\
     QTOgreWindow.cpp \
     OgreLogWatcher.cpp \
     RenderSystem.cpp \
-    ArpgCamera.cpp
+    ArpgCamera.cpp \
+    LightWidget.cpp
 
 HEADERS  += MainWindow.h \
     QTOgreWindow.h \
     OgreLogWatcher.h \
     RenderSystem.h \
-    ArpgCamera.h
+    ArpgCamera.h \
+    LightWidget.h
 
-FORMS    += MainWindow.ui
+FORMS    += MainWindow.ui \
+    LightWidget.ui
 
 LIBS += -L"/usr/local/lib" -lOgreMain -lOgreHlmsUnlit -lOgreHlmsPbs
