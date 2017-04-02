@@ -40,6 +40,11 @@ void RenderSystem::Render()
     _root->renderOneFrame();
 }
 
+void RenderSystem::Resize(unsigned int width, unsigned int height)
+{
+    _ogreWindow->resize(width, height);
+}
+
 void RenderSystem::Initialize(unsigned int width, unsigned int height, unsigned long externalWindowHandle, unsigned long parentWindowHandle)
 {
     // Initialize Ogre

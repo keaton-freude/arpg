@@ -75,6 +75,7 @@ bool QTOgreWindow::eventFilter(QObject *target, QEvent *event)
             else
             {
                 // Handle Resize
+                _renderSystem.Resize(this->width(), this->height());
             }
         }
     }

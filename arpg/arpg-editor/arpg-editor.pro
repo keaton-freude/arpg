@@ -28,12 +28,14 @@ SOURCES += main.cpp\
         MainWindow.cpp \
     QTOgreWindow.cpp \
     OgreLogWatcher.cpp \
-    RenderSystem.cpp
+    RenderSystem.cpp \
+    ArpgCamera.cpp
 
 HEADERS  += MainWindow.h \
     QTOgreWindow.h \
     OgreLogWatcher.h \
-    RenderSystem.h
+    RenderSystem.h \
+    ArpgCamera.h
 
 FORMS    += MainWindow.ui
 

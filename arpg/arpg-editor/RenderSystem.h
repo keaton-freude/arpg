@@ -17,6 +17,7 @@ public:
     ~RenderSystem();
 
     void Render();
+    void Resize(unsigned int width, unsigned int height);
     void Initialize(unsigned int width, unsigned int height, unsigned long externalWindowHandle, unsigned long parentWindowHandle);
 
     bool IsInitialized() const;
