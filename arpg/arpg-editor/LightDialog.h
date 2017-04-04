@@ -23,6 +23,8 @@ private slots:
 
     void on_chkDirectionalLightEnabled_clicked(bool checked);
 
+    void on_sliderDirLightX_sliderMoved(int position);
+
 private:
     Ui::LightDialog *ui;
     RenderSystem* renderSystem;

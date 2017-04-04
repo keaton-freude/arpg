@@ -32,3 +32,13 @@ void LightDialog::on_chkDirectionalLightEnabled_clicked(bool checked)
     else
         renderSystem->GetDirectionalLight()->Disable();
 }
+
+void LightDialog::on_sliderDirLightX_sliderMoved(int position)
+{
+    float value = position / 100.0f;
+    QString rounded = QString::number(value, 'f', 2);
+    ui->txtDirLightX->setText(rounded);
+
+    // update x component
+    renderSystem->GetDirectionalLight()->SetDirectionX(value);
+}

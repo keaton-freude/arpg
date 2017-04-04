@@ -13,7 +13,11 @@ public:
     void Enable();
     void Disable();
     void SetDirection(Ogre::Vector3 direction);
+    void SetDirectionX(float new_x);
+    void SetDirectionY(float new_y);
+    void SetDirectionZ(float new_z);
     void SetDiffuseColor(Ogre::ColourValue color);
+    Ogre::Vector3 GetDirection();
 private:
     Ogre::SceneNode* _node;
     Ogre::Light* _light;

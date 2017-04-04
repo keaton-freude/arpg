@@ -79,8 +79,11 @@ void RenderSystem::Initialize(unsigned int width, unsigned int height, unsigned 
     _initialized = true;
 
     // Load a sphere for testing lighting
-
-
+    Ogre::Item* sphereItem = _ogreSceneManager->createItem("Sphere1000.mesh");
+    Ogre::SceneNode* sphereSceneNode = _ogreSceneManager->getRootSceneNode()->createChildSceneNode();
+    sphereSceneNode->setPosition(0, 0, 2);
+    sphereItem->setDatablock("DebugSphere1000");
+    sphereSceneNode->attachObject(sphereItem);
 }
 
 bool RenderSystem::IsDirectionalLightEnabled() const
@@ -210,7 +213,7 @@ void RenderSystem::CreateCamera()
     _ogreCamera = _ogreSceneManager->createCamera("MainCamera");
 
     // Set to some default location
-    _ogreCamera->setPosition(Ogre::Vector3(0.0f, 20.0f, 0.0f));
+    _ogreCamera->setPosition(Ogre::Vector3(0.0f, 0.0f, 5.0f));
     _ogreCamera->lookAt(Ogre::Vector3::ZERO);
     _ogreCamera->setNearClipDistance(0.1f);
     _ogreCamera->setFarClipDistance(200.0f);

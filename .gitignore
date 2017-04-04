@@ -47,3 +47,4 @@ arpg/build/arpg-editor
 *.glsl
 DebugPack.zip
 DebugPack/
+arpg-editor.debug
