@@ -19,6 +19,8 @@ public:
 
     void setAnimating(bool animating);
 
+    RenderSystem* GetRenderSystem();
+
 public slots:
     virtual void renderLater();
     virtual void renderNow();

@@ -8,6 +8,8 @@
 #include <OgreMeshManager.h>
 #include <OgreMesh2.h>
 #include <OgreMeshManager2.h>
+#include "DirectionalLightSettings.h"
+#include "DirectionalLight.h"
 
 class RenderSystem : public Ogre::FrameListener
 {
@@ -16,10 +18,12 @@ public:
     RenderSystem(Ogre::LogListener* logListener);
     ~RenderSystem();
 
+    DirectionalLight* GetDirectionalLight();
     void Render();
     void Resize(unsigned int width, unsigned int height);
     void Initialize(unsigned int width, unsigned int height, unsigned long externalWindowHandle, unsigned long parentWindowHandle);
 
+    bool IsDirectionalLightEnabled() const;
     bool IsInitialized() const;
 private:
     void RegisterResources();
@@ -28,6 +32,7 @@ private:
     void CreateSceneManager();
     void CreateCamera();
     void CreateCompositor();
+    void LoadHlms();
 
     Ogre::Root* _root;
     Ogre::RenderWindow* _ogreWindow;
@@ -35,7 +40,7 @@ private:
     Ogre::Camera* _ogreCamera;
     Ogre::ColourValue _clearColor;
     Ogre::LogListener* _logListener;
-    Ogre::Light* _directionalLight;
+    DirectionalLight* _directionalLight;
 
     bool _initialized;
 };

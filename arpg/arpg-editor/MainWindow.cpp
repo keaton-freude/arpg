@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->logList->setUniformItemSizes(true);
 
     QTOgreWindow* ogreWindow = new QTOgreWindow(&logWatcher);
+    lightDialog->SetRenderSystem(ogreWindow->GetRenderSystem());
 
     connect(&logWatcher, &OgreLogWatcher::logAdded, this, &MainWindow::logAdded);
 

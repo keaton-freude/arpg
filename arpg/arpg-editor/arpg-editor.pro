@@ -30,14 +30,17 @@ SOURCES += main.cpp\
     OgreLogWatcher.cpp \
     RenderSystem.cpp \
     ArpgCamera.cpp \
-    LightDialog.cpp
+    LightDialog.cpp \
+    DirectionalLight.cpp
 
 HEADERS  += MainWindow.h \
     QTOgreWindow.h \
     OgreLogWatcher.h \
     RenderSystem.h \
     ArpgCamera.h \
-    LightDialog.h
+    LightDialog.h \
+    DirectionalLightSettings.h \
+    DirectionalLight.h
 
 FORMS    += MainWindow.ui \
     LightDialog.ui

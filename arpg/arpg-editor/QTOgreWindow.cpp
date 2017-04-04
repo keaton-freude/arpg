@@ -36,6 +36,11 @@ void QTOgreWindow::setAnimating(bool animating)
         renderLater();
 }
 
+RenderSystem *QTOgreWindow::GetRenderSystem()
+{
+    return &_renderSystem;
+}
+
 void QTOgreWindow::renderLater()
 {
     if (!_update_pending)

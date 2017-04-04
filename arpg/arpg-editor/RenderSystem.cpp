@@ -7,8 +7,8 @@ RenderSystem::RenderSystem()
       _ogreCamera(nullptr),
       _clearColor(Ogre::ColourValue(100.f / 255.f, 149.f / 255.f, 237.f / 255.f, 1.0f)), // Cornflower Blue
       _logListener(nullptr),
-      _initialized(false),
-      _directionalLight(nullptr)
+      _directionalLight(nullptr),
+      _initialized(false)
 {
 }
 
@@ -19,8 +19,8 @@ RenderSystem::RenderSystem(Ogre::LogListener *logListener)
       _ogreCamera(nullptr),
       _clearColor(Ogre::ColourValue(100.f / 225.f, 149.f / 255.f, 237.f / 255.f, 1.0f)),
       _logListener(logListener),
-      _initialized(false),
-      _directionalLight(nullptr)
+      _directionalLight(nullptr),
+      _initialized(false)
 {
 
 }
@@ -35,6 +35,11 @@ RenderSystem::~RenderSystem()
 
     delete _root;
     _root = nullptr;
+}
+
+DirectionalLight *RenderSystem::GetDirectionalLight()
+{
+    return _directionalLight;
 }
 
 void RenderSystem::Render()
@@ -68,8 +73,14 @@ void RenderSystem::Initialize(unsigned int width, unsigned int height, unsigned 
     Ogre::TextureManager::getSingletonPtr()->setDefaultNumMipmaps(5);
     Ogre::ResourceGroupManager::getSingletonPtr()->initialiseAllResourceGroups();
 
+    _directionalLight = new DirectionalLight(_ogreSceneManager);
     _root->addFrameListener(this);
     _initialized = true;
+}
+
+bool RenderSystem::IsDirectionalLightEnabled() const
+{
+    return _directionalLight != nullptr;
 }
 
 bool RenderSystem::IsInitialized() const
