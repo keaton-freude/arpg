@@ -69,6 +69,7 @@ void RenderSystem::Initialize(unsigned int width, unsigned int height, unsigned 
     CreateSceneManager();
     CreateCamera();
     CreateCompositor();
+    LoadHlms();
 
     Ogre::TextureManager::getSingletonPtr()->setDefaultNumMipmaps(5);
     Ogre::ResourceGroupManager::getSingletonPtr()->initialiseAllResourceGroups();
@@ -76,6 +77,10 @@ void RenderSystem::Initialize(unsigned int width, unsigned int height, unsigned 
     _directionalLight = new DirectionalLight(_ogreSceneManager);
     _root->addFrameListener(this);
     _initialized = true;
+
+    // Load a sphere for testing lighting
+
+
 }
 
 bool RenderSystem::IsDirectionalLightEnabled() const
@@ -223,6 +228,33 @@ void RenderSystem::CreateCompositor()
     const Ogre::IdString workspaceNameHash = workspaceName;
     compositorManager->createBasicWorkspaceDef(workspaceName, _clearColor);
     compositorManager->addWorkspace(_ogreSceneManager, _ogreWindow, _ogreCamera, workspaceNameHash, true);
+}
+
+void RenderSystem::LoadHlms()
+{
+    // Figure out where the HLMS implementations live
+    // resources.cfg has a special entry for it
+    Ogre::ConfigFile cf;
+    cf.load("resources.cfg");
+
+    Ogre::String dataFolder = cf.getSetting("DoNotUseAsResource", "Hlms", "");
+
+    Ogre::RenderSystem* renderSystem = _root->getRenderSystem();
+
+    Ogre::Archive* archiveLibrary = Ogre::ArchiveManager::getSingletonPtr()->load(
+                dataFolder + "Hlms/Common/GLSL", "FileSystem", true);
+
+    Ogre::Archive* archiveLibraryAny = Ogre::ArchiveManager::getSingletonPtr()->load(
+                dataFolder + "Hlms/Common/Any", "FileSystem", true);
+
+    Ogre::ArchiveVec library;
+    library.push_back(archiveLibrary);
+    library.push_back(archiveLibraryAny);
+
+    Ogre::Archive* archivePbs = Ogre::ArchiveManager::getSingletonPtr()->load(
+                dataFolder + "Hlms/Pbs/GLSL", "FileSystem", true);
+    Ogre::HlmsPbs* hlmsPbs = OGRE_NEW Ogre::HlmsPbs(archivePbs, &library);
+    Ogre::Root::getSingletonPtr()->getHlmsManager()->registerHlms(hlmsPbs);
 }
 
 

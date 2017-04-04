@@ -8,6 +8,8 @@
 #include <OgreMeshManager.h>
 #include <OgreMesh2.h>
 #include <OgreMeshManager2.h>
+#include <Hlms/Pbs/OgreHlmsPbs.h>
+#include <Hlms/Pbs/OgreHlmsPbsDatablock.h>
 #include "DirectionalLightSettings.h"
 #include "DirectionalLight.h"
 
