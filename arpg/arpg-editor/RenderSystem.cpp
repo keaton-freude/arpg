@@ -7,7 +7,8 @@ RenderSystem::RenderSystem()
       _ogreCamera(nullptr),
       _clearColor(Ogre::ColourValue(100.f / 255.f, 149.f / 255.f, 237.f / 255.f, 1.0f)), // Cornflower Blue
       _logListener(nullptr),
-      _initialized(false)
+      _initialized(false),
+      _directionalLight(nullptr)
 {
 }
 
@@ -18,7 +19,8 @@ RenderSystem::RenderSystem(Ogre::LogListener *logListener)
       _ogreCamera(nullptr),
       _clearColor(Ogre::ColourValue(100.f / 225.f, 149.f / 255.f, 237.f / 255.f, 1.0f)),
       _logListener(logListener),
-      _initialized(false)
+      _initialized(false),
+      _directionalLight(nullptr)
 {
 
 }

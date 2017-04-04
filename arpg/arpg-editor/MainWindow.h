@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <string>
 #include <OgreLogWatcher.h>
+#include "LightDialog.h"
 
 using std::string;
 
@@ -22,8 +23,11 @@ public:
 private slots:
     void logAdded(string message);
 
+    void on_actionLights_triggered();
+
 private:
     Ui::MainWindow *ui;
+    LightDialog* lightDialog;
     OgreLogWatcher logWatcher;
 };
 

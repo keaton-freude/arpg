@@ -1,4 +1,4 @@
-<?xml version='1.0'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>LightWidget</class>
  <widget class="QDockWidget" name="LightWidget">
@@ -6,13 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>248</width>
+    <height>381</height>
    </rect>
   </property>
+  <property name="floating">
+   <bool>true</bool>
+  </property>
   <property name="windowTitle">
-   <string>DockWidget</string>
+   <string>Scene Light Editor</string>
   </property>
   <widget class="QWidget" name="dockWidgetContents"/>
  </widget>
+ <resources/>
+ <connections/>
 </ui>

@@ -35,6 +35,7 @@ private:
     Ogre::Camera* _ogreCamera;
     Ogre::ColourValue _clearColor;
     Ogre::LogListener* _logListener;
+    Ogre::Light* _directionalLight;
 
     bool _initialized;
 };

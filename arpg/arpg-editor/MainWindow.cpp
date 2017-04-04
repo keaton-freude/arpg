@@ -5,10 +5,10 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    lightDialog(new LightDialog(this))
 {
     ui->setupUi(this);
-
     ui->logList->setUniformItemSizes(true);
 
     QTOgreWindow* ogreWindow = new QTOgreWindow(&logWatcher);
@@ -33,4 +33,9 @@ void MainWindow::logAdded(string message)
 {
     ui->logList->addItem(QString::fromStdString(message));
     ui->logList->scrollToBottom();
+}
+
+void MainWindow::on_actionLights_triggered()
+{
+    lightDialog->show();
 }
