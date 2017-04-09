@@ -42,3 +42,23 @@ void LightDialog::on_sliderDirLightX_sliderMoved(int position)
     // update x component
     renderSystem->GetDirectionalLight()->SetDirectionX(value);
 }
+
+void LightDialog::on_sliderDirLightY_sliderMoved(int position)
+{
+    float value = position / 100.0f;
+    QString rounded = QString::number(value, 'f', 2);
+    ui->txtDirLightY->setText(rounded);
+
+    // update x component
+    renderSystem->GetDirectionalLight()->SetDirectionY(value);
+}
+
+void LightDialog::on_sliderDirLightZ_sliderMoved(int position)
+{
+    float value = position / 100.0f;
+    QString rounded = QString::number(value, 'f', 2);
+    ui->txtDirLightZ->setText(rounded);
+
+    // update x component
+    renderSystem->GetDirectionalLight()->SetDirectionZ(value);
+}

@@ -25,6 +25,10 @@ private slots:
 
     void on_sliderDirLightX_sliderMoved(int position);
 
+    void on_sliderDirLightY_sliderMoved(int position);
+
+    void on_sliderDirLightZ_sliderMoved(int position);
+
 private:
     Ui::LightDialog *ui;
     RenderSystem* renderSystem;
