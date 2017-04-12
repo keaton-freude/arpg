@@ -30,16 +30,12 @@ RenderSystem::~RenderSystem()
     if (_logListener != nullptr)
     {
         Ogre::LogManager::getSingleton().getDefaultLog()->removeListener(_logListener);
-        _logListener = nullptr;
     }
-
-    delete _root;
-    _root = nullptr;
 }
 
 DirectionalLight *RenderSystem::GetDirectionalLight()
 {
-    return _directionalLight;
+    return _directionalLight.get();
 }
 
 void RenderSystem::Render()
@@ -53,9 +49,8 @@ void RenderSystem::Resize(unsigned int width, unsigned int height)
 }
 
 void RenderSystem::Initialize(unsigned int width, unsigned int height, unsigned long externalWindowHandle, unsigned long parentWindowHandle)
-{
-    // Initialize Ogre
-    _root = new Ogre::Root();
+{    
+    _root = std::unique_ptr<Ogre::Root>(new Ogre::Root);
 
     if (_logListener != nullptr)
         Ogre::LogManager::getSingletonPtr()->getDefaultLog()->addListener(_logListener);
@@ -74,7 +69,7 @@ void RenderSystem::Initialize(unsigned int width, unsigned int height, unsigned 
     Ogre::TextureManager::getSingletonPtr()->setDefaultNumMipmaps(5);
     Ogre::ResourceGroupManager::getSingletonPtr()->initialiseAllResourceGroups();
 
-    _directionalLight = new DirectionalLight(_ogreSceneManager);
+    _directionalLight = std::unique_ptr<DirectionalLight>(new DirectionalLight(_ogreSceneManager));
     _root->addFrameListener(this);
     _initialized = true;
 
@@ -94,6 +89,27 @@ bool RenderSystem::IsDirectionalLightEnabled() const
 bool RenderSystem::IsInitialized() const
 {
     return _initialized;
+}
+
+void RenderSystem::SetAmbientSettings(AmbientLight settings)
+{
+    _ogreSceneManager->setAmbientLight(settings._upperHemisphere, settings._lowerHemisphere,
+                                       settings._hemisphereDirection, settings._envmapScale);
+}
+
+AmbientLight RenderSystem::GetAmbientSettings()
+{
+    return ambientSettings;
+}
+
+void RenderSystem::DisableAmbientLight()
+{
+    // We can "disable" ambient lighting by just settings all of
+    // its values to zeroes
+    _ogreSceneManager->setAmbientLight(Ogre::ColourValue(0.0f, 0.0f, 0.0f),
+                                       Ogre::ColourValue(0.0f, 0.0f, 0.0f),
+                                       Ogre::Vector3::ZERO,
+                                       1.0f);
 }
 
 void RenderSystem::RegisterResources()
@@ -259,7 +275,3 @@ void RenderSystem::LoadHlms()
     Ogre::HlmsPbs* hlmsPbs = OGRE_NEW Ogre::HlmsPbs(archivePbs, &library);
     Ogre::Root::getSingletonPtr()->getHlmsManager()->registerHlms(hlmsPbs);
 }
-
-
-
-

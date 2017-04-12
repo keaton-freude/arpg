@@ -76,6 +76,8 @@ bool QTOgreWindow::eventFilter(QObject *target, QEvent *event)
             if (!_renderSystem.IsInitialized())
             {
                 _renderSystem.Initialize(this->width(), this->height(), this->winId(), this->winId());
+
+
             }
             else
             {

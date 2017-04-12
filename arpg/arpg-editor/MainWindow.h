@@ -5,6 +5,7 @@
 #include <string>
 #include <OgreLogWatcher.h>
 #include "LightDialog.h"
+#include "QTOgreWindow.h"
 
 using std::string;
 
@@ -28,6 +29,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     LightDialog* lightDialog;
+    QTOgreWindow* ogreWindow;
     OgreLogWatcher logWatcher;
 };
 

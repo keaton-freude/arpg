@@ -8,6 +8,8 @@ DirectionalLight::DirectionalLight(Ogre::SceneManager *sceneManager, Directional
     _light->setPowerScale(1.0f);
     _light->setType(Ogre::Light::LT_DIRECTIONAL);
     _light->setDirection(Ogre::Vector3(1, -1, -1));
+    _light->setDiffuseColour(1.0f, 1.0f, 0.0f);
+
 
 
     if (settings != nullptr)

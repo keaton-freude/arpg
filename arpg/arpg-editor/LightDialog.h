@@ -29,9 +29,22 @@ private slots:
 
     void on_sliderDirLightZ_sliderMoved(int position);
 
+    void on_btnSelectDiffuseColor_clicked();
+
+    void on_chkAmbientLightEnabled_clicked(bool checked);
+
+    void on_chkAmbientLightEnabled_toggled(bool checked);
+
+    void on_btnSelectUpperHemisphereColor_clicked();
+
 private:
     Ui::LightDialog *ui;
     RenderSystem* renderSystem;
+
+    AmbientLight GetSettingsFromUi();
+    Ogre::ColourValue GetColourValueFromWidget(QWidget* widget, QColor initialColor = Qt::white);
+    QColor GetQColorFromWidget(QWidget* widget);
+    void SetWidgetBackgroundColor(QWidget* widget, QColor color);
 };
 
 #endif // LIGHTDIALOG_H

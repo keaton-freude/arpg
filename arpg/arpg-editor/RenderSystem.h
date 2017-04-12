@@ -13,6 +13,10 @@
 #include <Hlms/Pbs/OgreHlmsPbsDatablock.h>
 #include "DirectionalLightSettings.h"
 #include "DirectionalLight.h"
+#include <memory>
+using std::unique_ptr;
+#include "AmbientLight.h"
+
 
 class RenderSystem : public Ogre::FrameListener
 {
@@ -28,6 +32,10 @@ public:
 
     bool IsDirectionalLightEnabled() const;
     bool IsInitialized() const;
+
+    void SetAmbientSettings(AmbientLight settings);
+    AmbientLight GetAmbientSettings();
+    void DisableAmbientLight();
 private:
     void RegisterResources();
     void LoadRenderSystem(unsigned int width, unsigned int height);
@@ -37,13 +45,18 @@ private:
     void CreateCompositor();
     void LoadHlms();
 
-    Ogre::Root* _root;
+    unique_ptr<Ogre::Root> _root;
+
+    // These ogre pointers are owned by Ogre, when root is freed
+    // these pointers become invalid.
     Ogre::RenderWindow* _ogreWindow;
     Ogre::SceneManager* _ogreSceneManager;
     Ogre::Camera* _ogreCamera;
     Ogre::ColourValue _clearColor;
     Ogre::LogListener* _logListener;
-    DirectionalLight* _directionalLight;
+
+    unique_ptr<DirectionalLight> _directionalLight;
+    AmbientLight ambientSettings;
 
     bool _initialized;
 };

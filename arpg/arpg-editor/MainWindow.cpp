@@ -2,17 +2,20 @@
 #include "ui_MainWindow.h"
 #include "QTOgreWindow.h"
 #include <OgreLogManager.h>
+#include <QColorDialog>
+#include <thread>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    lightDialog(new LightDialog(this))
+    ogreWindow(nullptr),
+    lightDialog(nullptr)
 {
     ui->setupUi(this);
     ui->logList->setUniformItemSizes(true);
 
-    QTOgreWindow* ogreWindow = new QTOgreWindow(&logWatcher);
-    lightDialog->SetRenderSystem(ogreWindow->GetRenderSystem());
+    ogreWindow = new QTOgreWindow(&logWatcher);
 
     connect(&logWatcher, &OgreLogWatcher::logAdded, this, &MainWindow::logAdded);
 
@@ -22,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tabWidget->removeTab(0);
     ui->tabWidget->addTab(renderingContainer, tr("New Ogre Window"));
 
-
+    std::this_thread::sleep_for(std::chrono::duration<float>(1.0f));
 }
 
 MainWindow::~MainWindow()
@@ -38,5 +41,10 @@ void MainWindow::logAdded(string message)
 
 void MainWindow::on_actionLights_triggered()
 {
+    if (lightDialog == nullptr)
+    {
+        lightDialog = new LightDialog(this);
+        lightDialog->SetRenderSystem(ogreWindow->GetRenderSystem());
+    }
     lightDialog->show();
 }
