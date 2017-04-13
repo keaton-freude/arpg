@@ -17,7 +17,7 @@ public:
     ~LightDialog();
 
     void SetRenderSystem(RenderSystem* renderSystem);
-
+    void Initialize();
 private slots:
     void on_chkDirectionalLightEnabled_stateChanged(int arg1);
 
@@ -35,7 +35,10 @@ private slots:
 
     void on_chkAmbientLightEnabled_toggled(bool checked);
 
-    void on_btnSelectUpperHemisphereColor_clicked();
+private slots:
+    void lowerHemisphereColorChanged(Ogre::ColourValue color);
+    void upperHemisphereColorChanged(Ogre::ColourValue color);
+    void diffuseColorChanged(Ogre::ColourValue color);
 
 private:
     Ui::LightDialog *ui;
@@ -44,7 +47,8 @@ private:
     AmbientLight GetSettingsFromUi();
     Ogre::ColourValue GetColourValueFromWidget(QWidget* widget, QColor initialColor = Qt::white);
     QColor GetQColorFromWidget(QWidget* widget);
-    void SetWidgetBackgroundColor(QWidget* widget, QColor color);
+    Ogre::ColourValue startingLowerHemisphere;
+    Ogre::ColourValue startingUpperHemisphere;
 };
 
 #endif // LIGHTDIALOG_H

@@ -45,6 +45,7 @@ void MainWindow::on_actionLights_triggered()
     {
         lightDialog = new LightDialog(this);
         lightDialog->SetRenderSystem(ogreWindow->GetRenderSystem());
+        lightDialog->Initialize();
     }
     lightDialog->show();
 }

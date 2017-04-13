@@ -4,16 +4,17 @@
 
 LightDialog::LightDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::LightDialog)
+    ui(new Ui::LightDialog),
+    startingLowerHemisphere(Ogre::ColourValue( 0.6f, 0.45f, 0.3f ) * 0.065f * 0.75f),
+    startingUpperHemisphere(Ogre::ColourValue( 0.3f, 0.5f, 0.7f ) * 0.1f * 0.75f)
 {
     ui->setupUi(this);
 
-    // Default hemisphere values
-    QColor upperHemisphere = QColor(0.3f * 0.1f * 0.75f * 255, 0.5f * 0.1f * 0.75f * 255, 0.7f * 0.1f * 0.75f * 255);
-    QColor lowerHemisphere = QColor(0.6f * 0.065f * 0.75f * 255, 0.45f * 0.065f * 0.75f * 255, 0.3f * 0.065f * 0.75f * 255);
+    //    connect(&logWatcher, &OgreLogWatcher::logAdded, this, &MainWindow::logAdded);
+    connect(ui->lowerHemisphereColor, &QOgreColorPickerWidget::colorChanged, this, &LightDialog::lowerHemisphereColorChanged);
+    connect(ui->upperHemisphereColor, &QOgreColorPickerWidget::colorChanged, this, &LightDialog::upperHemisphereColorChanged);
+    connect(ui->diffuseColor, &QOgreColorPickerWidget::colorChanged, this, &LightDialog::diffuseColorChanged);
 
-    //SetWidgetBackgroundColor(ui->upperHemisphereColor, upperHemisphere);
-    //SetWidgetBackgroundColor(ui->lowerHemisphereColor, lowerHemisphere);
 }
 
 LightDialog::~LightDialog()
@@ -24,6 +25,12 @@ LightDialog::~LightDialog()
 void LightDialog::SetRenderSystem(RenderSystem *renderSystem)
 {
     this->renderSystem = renderSystem;
+}
+
+void LightDialog::Initialize()
+{
+    ui->lowerHemisphereColor->SetCurrentColor(startingLowerHemisphere);
+    ui->upperHemisphereColor->SetCurrentColor(startingUpperHemisphere);
 }
 
 void LightDialog::on_chkDirectionalLightEnabled_stateChanged(int arg1)
@@ -93,16 +100,8 @@ AmbientLight LightDialog::GetSettingsFromUi()
 {
     AmbientLight settings;
 
-    auto qLowerHemisphereColor = Ogre::ColourValue::White;//ui->lowerHemisphereColor->palette().background().color();
-    //auto qUpperHemisphereColor = ui->upperHemisphereColor->palette().background().color();
-
-    Ogre::ColourValue lowerHemisphereColor = Ogre::ColourValue::White;// Ogre::ColourValue(qLowerHemisphereColor.redF(),
-                                                               //qLowerHemisphereColor.greenF(),
-                                                               //qLowerHemisphereColor.blueF());
-
-    Ogre::ColourValue upperHemisphereColor = Ogre::ColourValue::White; //Ogre::ColourValue(qUpperHemisphereColor.redF(),
-                                                               //qUpperHemisphereColor.greenF(),
-                                                               //qUpperHemisphereColor.blueF());
+    auto lowerHemisphereColor = ui->lowerHemisphereColor->GetCurrentColor();
+    auto upperHemisphereColor = ui->upperHemisphereColor->GetCurrentColor();
 
     Ogre::Vector3 hemisphereDirection;
     hemisphereDirection.x = ui->txtAmbientHemisphereDirX->text().toFloat();
@@ -138,13 +137,6 @@ QColor LightDialog::GetQColorFromWidget(QWidget *widget)
 
 }
 
-void LightDialog::SetWidgetBackgroundColor(QWidget *widget, QColor color)
-{
-    QPalette palette = widget->palette();
-    palette.setColor(QPalette::Background, color);
-    widget->setPalette(palette);
-}
-
 void LightDialog::on_chkAmbientLightEnabled_toggled(bool checked)
 {
     if (checked)
@@ -157,17 +149,17 @@ void LightDialog::on_chkAmbientLightEnabled_toggled(bool checked)
     }
 }
 
-void LightDialog::on_btnSelectUpperHemisphereColor_clicked()
+void LightDialog::lowerHemisphereColorChanged(Ogre::ColourValue color)
 {
-    AmbientLight settings = renderSystem->GetAmbientSettings();
-    //settings._upperHemisphere = GetColourValueFromWidget(ui->upperHemisphereColor, ui->upperHemisphereColor->palette().background().color());
+    renderSystem->SetAmbientSettings(GetSettingsFromUi());
+}
 
+void LightDialog::upperHemisphereColorChanged(Ogre::ColourValue color)
+{
+    renderSystem->SetAmbientSettings(GetSettingsFromUi());
+}
 
-    Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(settings._lowerHemisphere.r)
-                                                    + ", " + std::to_string(settings._lowerHemisphere.g)
-                                                    + ", " + std::to_string(settings._lowerHemisphere.b));
-    renderSystem->SetAmbientSettings(settings);
-
-    QColor backgroundColor = QColor(settings._upperHemisphere.r * 255, settings._upperHemisphere.g * 255, settings._upperHemisphere.b * 255);
-    //SetWidgetBackgroundColor(ui->upperHemisphereColor, backgroundColor);
+void LightDialog::diffuseColorChanged(Ogre::ColourValue color)
+{
+    renderSystem->GetDirectionalLight()->SetDiffuseColor(color);
 }

@@ -33,8 +33,7 @@ SOURCES += main.cpp\
     RenderSystem.cpp \
     ArpgCamera.cpp \
     LightDialog.cpp \
-    DirectionalLight.cpp \
-    QOgreColorPickerWidget.cpp
+    DirectionalLight.cpp
 
 HEADERS  += MainWindow.h \
     QTOgreWindow.h \
@@ -44,11 +43,17 @@ HEADERS  += MainWindow.h \
     LightDialog.h \
     DirectionalLightSettings.h \
     DirectionalLight.h \
-    AmbientLight.h \
-    QOgreColorPickerWidget.h
+    AmbientLight.h
+
+
+# Plugins headers..
+
+HEADERS += ./PluginProjects/QOgreColorPickerPlugin/QOgreColorPickerWidget.h
+SOURCES += ./PluginProjects/QOgreColorPickerPlugin/QOgreColorPickerWidget.cpp
+
+INCLUDEPATH += ./PluginProjects/QOgreColorPickerPlugin
 
 FORMS    += MainWindow.ui \
-    LightDialog.ui \
-    QOgreColorPickerWidget.ui
+    LightDialog.ui
 
 LIBS += -L"/usr/local/lib" -lOgreMain -lOgreHlmsUnlit -lOgreHlmsPbs

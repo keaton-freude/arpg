@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QtUiPlugin/QDesignerExportWidget>
+#include <QColorDialog>
+
+#include <OgreColourValue.h>
 
 namespace Ui {
 class QOgreColorPickerWidget;
@@ -16,6 +19,8 @@ public:
     explicit QOgreColorPickerWidget(QWidget *parent = 0);
     ~QOgreColorPickerWidget();
 
+    void SetCurrentColor(Ogre::ColourValue color);
+
 public slots:
     QString colorPickerTitle() const
     {
@@ -24,15 +29,26 @@ public slots:
 
     void setColorPickerTitle(QString s);
 
+    Ogre::ColourValue GetCurrentColor() const
+    {
+        return currentColor;
+    }
 
 protected:
     QString m_colorPickerTitle;
 
 signals:
     void titleChanged(QString s);
+    void colorChanged(Ogre::ColourValue color);
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::QOgreColorPickerWidget *ui;
+    Ogre::ColourValue currentColor;
+    void SetWidgetBackgroundColor(QWidget* widget, QColor color);
+    QColor GetQColorFromOgreColor(Ogre::ColourValue color);
 };
 
 #endif // QOGRECOLORPICKERWIDGET_H

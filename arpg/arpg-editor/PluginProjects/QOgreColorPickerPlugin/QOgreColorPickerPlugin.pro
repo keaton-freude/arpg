@@ -13,10 +13,12 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     CONFIG += designer
 }
 
-target.path = $$[QT_INSTALL_PLUGINS]/designer
 INSTALLS    += target
 
 include(QOgreColorPickerWidget.pri)
+
+INCLUDEPATH += /usr/local/include/OGRE
+
 
 FORMS += \
     QOgreColorPickerWidget.ui

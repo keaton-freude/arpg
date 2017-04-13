@@ -61,14 +61,15 @@ bool QOgreColorPickerWidgetPlugin::isContainer() const
 
 QString QOgreColorPickerWidgetPlugin::domXml() const
 {
-    //return QLatin1String("<widget class=\"QOgreColorPickerWidget\" name=\"qOgreColorPickerWidget\">\n</widget>\n");
-    return "<ui language=\"c++\">\n"
-            " <widget class=\"QOgreColorPickerWidget\" name=\"qOgreColorPickerWidget\">\n"
-            "  <property name=\"colorPickerTitle\">\n"
-            "   <string>TestString</string>\n"
-            "  </property>\n"
-            " </widget>\n"
-            "</ui>\n";
+    return QLatin1String("<widget class=\"QOgreColorPickerWidget\" name=\"qOgreColorPickerWidget\">\n</widget>\n");
+//    return "<ui language=\"c++\">\n"
+//            " <widget class=\"QOgreColorPickerWidget\" name=\"qOgreColorPickerWidget\">\n"
+//            "  <property name=\"colorPickerTitle\">\n"
+//            "   <string>TestString</string>\n"
+//            "  </property>\n"
+//            " </widget>\n"
+//            "</ui>\n";
+
 }
 
 QString QOgreColorPickerWidgetPlugin::includeFile() const
