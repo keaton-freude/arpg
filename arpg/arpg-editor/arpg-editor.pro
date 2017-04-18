@@ -67,7 +67,7 @@ FORMS    += MainWindow.ui \
 
 !win32
 {
-    #LIBS += -L"/usr/local/lib" -lOgreMain -lOgreHlmsUnlit -lOgreHlmsPbs
+    LIBS += -L"/usr/local/lib" -lOgreMain -lOgreHlmsUnlit -lOgreHlmsPbs
 }
 
 win32

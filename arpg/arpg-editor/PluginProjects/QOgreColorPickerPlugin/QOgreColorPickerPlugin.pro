@@ -13,6 +13,11 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     CONFIG += designer
 }
 
+!win32
+{
+    INCLUDEPATH += /usr/local/include/OGRE
+}
+
 win32
 {
     INCLUDEPATH += ..\..\..\..\..\OgreSDK\ogre\build\sdk\include\OGRE
