@@ -13,12 +13,18 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     CONFIG += designer
 }
 
-INSTALLS    += target
+win32
+{
+    INCLUDEPATH += ..\..\..\..\..\OgreSDK\ogre\build\sdk\include\OGRE
+}
 
 include(QOgreColorPickerWidget.pri)
 
-INCLUDEPATH += /usr/local/include/OGRE
-
-
 FORMS += \
     QOgreColorPickerWidget.ui
+
+
+win32
+{
+    LIBS += -L"..\..\..\..\..\OgreSDK\ogre\build\sdk\lib\debug" -lOgreMain_d -lOgreHlmsUnlit_d -lOgreHlmsPbs_d
+}

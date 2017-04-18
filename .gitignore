@@ -49,3 +49,6 @@ DebugPack.zip
 DebugPack/
 arpg-editor.debug
 arpg/arpg-editor/PluginProjects/build*
+*.pro.user*
+*Makefile.*
+arpg/build/debug

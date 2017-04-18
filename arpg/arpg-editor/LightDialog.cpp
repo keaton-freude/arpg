@@ -134,7 +134,7 @@ Ogre::ColourValue LightDialog::GetColourValueFromWidget(QWidget *widget, QColor 
 
 QColor LightDialog::GetQColorFromWidget(QWidget *widget)
 {
-
+    return QColor();
 }
 
 void LightDialog::on_chkAmbientLightEnabled_toggled(bool checked)

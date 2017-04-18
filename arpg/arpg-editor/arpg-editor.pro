@@ -24,7 +24,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 QMAKE_CXXFLAGS += -std=c++14
 
-INCLUDEPATH += /usr/local/include/OGRE
+!win32
+{
+    INCLUDEPATH += /usr/local/include/OGRE
+}
+
+win32
+{
+    INCLUDEPATH += ..\..\..\OgreSDK\ogre\build\sdk\include\OGRE
+}
 
 SOURCES += main.cpp\
         MainWindow.cpp \
@@ -52,8 +60,21 @@ HEADERS += ./PluginProjects/QOgreColorPickerPlugin/QOgreColorPickerWidget.h
 SOURCES += ./PluginProjects/QOgreColorPickerPlugin/QOgreColorPickerWidget.cpp
 
 INCLUDEPATH += ./PluginProjects/QOgreColorPickerPlugin
+INCLUDEPATH += ./PluginProjects/build_colorPickerPlugin
 
 FORMS    += MainWindow.ui \
     LightDialog.ui
 
-LIBS += -L"/usr/local/lib" -lOgreMain -lOgreHlmsUnlit -lOgreHlmsPbs
+!win32
+{
+    #LIBS += -L"/usr/local/lib" -lOgreMain -lOgreHlmsUnlit -lOgreHlmsPbs
+}
+
+win32
+{
+    LIBS += -L"..\..\..\OgreSDK\ogre\build\sdk\lib\debug" -lOgreMain_d -lOgreHlmsUnlit_d -lOgreHlmsPbs_d
+}
+
+
+
+

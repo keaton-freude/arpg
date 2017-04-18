@@ -50,8 +50,15 @@ void RenderSystem::Resize(unsigned int width, unsigned int height)
 
 void RenderSystem::Initialize(unsigned int width, unsigned int height, unsigned long externalWindowHandle, unsigned long parentWindowHandle)
 {    
-    _root = std::unique_ptr<Ogre::Root>(new Ogre::Root);
-
+#ifdef _WIN32
+#ifdef _DEBUG
+    _root = std::unique_ptr<Ogre::Root>(new Ogre::Root("plugins_windows_debug.cfg"));
+#else
+    _root = std::unique_ptr<Ogre::Root>(new Ogre::Root("plugins_windows.cfg"));
+#endif
+#else
+    _root = std::unique_ptr<Ogre::Root>(new Ogre::Root("plugins.cfg"));
+#endif
     if (_logListener != nullptr)
         Ogre::LogManager::getSingletonPtr()->getDefaultLog()->addListener(_logListener);
 
@@ -254,11 +261,17 @@ void RenderSystem::LoadHlms()
     // Figure out where the HLMS implementations live
     // resources.cfg has a special entry for it
     Ogre::ConfigFile cf;
+#ifdef _WIN32
+    cf.load("resources_windows.cfg");
+#else
     cf.load("resources.cfg");
+#endif
 
     Ogre::String dataFolder = cf.getSetting("DoNotUseAsResource", "Hlms", "");
 
     Ogre::RenderSystem* renderSystem = _root->getRenderSystem();
+
+
 
     Ogre::Archive* archiveLibrary = Ogre::ArchiveManager::getSingletonPtr()->load(
                 dataFolder + "Hlms/Common/GLSL", "FileSystem", true);
@@ -266,12 +279,17 @@ void RenderSystem::LoadHlms()
     Ogre::Archive* archiveLibraryAny = Ogre::ArchiveManager::getSingletonPtr()->load(
                 dataFolder + "Hlms/Common/Any", "FileSystem", true);
 
+    Ogre::Archive *archivePbsLibraryAny = Ogre::ArchiveManager::getSingletonPtr()->load(
+                dataFolder + "Hlms/Pbs/Any", "FileSystem", true);
+
     Ogre::ArchiveVec library;
     library.push_back(archiveLibrary);
     library.push_back(archiveLibraryAny);
 
     Ogre::Archive* archivePbs = Ogre::ArchiveManager::getSingletonPtr()->load(
                 dataFolder + "Hlms/Pbs/GLSL", "FileSystem", true);
+    library.push_back(archivePbsLibraryAny);
+
     Ogre::HlmsPbs* hlmsPbs = OGRE_NEW Ogre::HlmsPbs(archivePbs, &library);
     Ogre::Root::getSingletonPtr()->getHlmsManager()->registerHlms(hlmsPbs);
 }

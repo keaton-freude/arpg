@@ -11,7 +11,7 @@ namespace Ui {
 class QOgreColorPickerWidget;
 }
 
-class QDESIGNER_WIDGET_EXPORT QOgreColorPickerWidget : public QWidget
+class QOgreColorPickerWidget : public QWidget
 {
     Q_OBJECT
     Q_PROPERTY(QString colorPickerTitle READ colorPickerTitle WRITE setColorPickerTitle NOTIFY titleChanged DESIGNABLE true)
